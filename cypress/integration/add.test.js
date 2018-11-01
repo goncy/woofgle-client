@@ -1,40 +1,36 @@
-import {fillForm} from "../utils/add";
+function fillForm(nombre, image, submit) {
+  cy.data("add-form", ".name").type(nombre);
+  cy.data("add-form", ".image").type(image);
+  submit && cy.data("add-form", "button").click();
+}
 
-describe("Add", () => {
+describe("Agregar", () => {
   beforeEach(() => {
-    cy.server();
-
     cy.visit("/add");
 
-    cy.get("[data-test=add-form] button").as("submit");
+    cy.server();
   });
 
-  it("Enables the submit only when the form is valid", () => {
-    cy.get("@submit").should("be.disabled");
+  it("El boton de agregar esta habilitado solo cuando el formulario es valido", () => {
+    cy.data("add-form", "button").should("be.disabled");
 
-    fillForm("Chiquita", "//placehold.it/256/256");
+    fillForm("Mongo", "//placehold.it/256/256");
 
-    cy.get("@submit").should("not.be.disabled");
+    cy.data("add-form", "button").should("not.be.disabled");
   });
 
-  it("Show confirmation on add", () => {
-    const dog = {
-      name: "Chiquita",
+  it("Se muestra un mensaje de confirmacion al agregar un perrito", () => {
+    cy.route("POST", "/dogs**", {
+      name: "Mongo",
       image: "//placehold.it/256/256",
-    };
+    });
 
-    cy.route("POST", "/dogs**", dog).as("request");
-
-    fillForm(dog.name, dog.image, true);
-
-    cy.wait("@request")
-      .its("requestBody")
-      .should("be", dog);
+    fillForm("Mongo", "//placehold.it/256/256", true);
 
     cy.contains("Tu perrito fue agregado correctamente");
   });
 
-  it("Show error on fail", () => {
+  it("Se muestra un mensaje de error is algo falla", () => {
     cy.route({
       method: "POST",
       url: "/dogs**",
@@ -44,7 +40,7 @@ describe("Add", () => {
       },
     });
 
-    fillForm("This will", "fail", true);
+    fillForm("Mongo", "//placehold.it/256/256", true);
 
     cy.contains(
       "Hubo un error agregando tu perrito, intentá de nuevo mas tarde"

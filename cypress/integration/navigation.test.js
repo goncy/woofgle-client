@@ -1,11 +1,11 @@
-describe("Navigation", () => {
-  it("navigates from search to add and back", () => {
+describe("Navegacion", () => {
+  it("La url cambia al navegar entre rutas", () => {
     cy.visit("/");
 
     cy.url().should("include", "/search");
-    cy.navigate("add");
+    cy.data("add-link").click();
     cy.url().should("include", "/add");
-    cy.navigate("search");
+    cy.data("search-link").click();
     cy.url().should("include", "/search");
   });
 });

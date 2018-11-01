@@ -1,4 +1,7 @@
-[
-  {"name": "Lola", "image": "//placehold.it/300/400?id=1"},
-  {"name": "Lolanda", "image": "//placehold.it/300/400?id=2"}
-]
+[{
+  "name": "Lola",
+  "image": "//placehold.it/256/256"
+}, {
+  "name": "Lolanda",
+  "image": "//placehold.it/256/256"
+}]

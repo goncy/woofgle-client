@@ -1,39 +1,39 @@
-import React, {Component} from "react";
+import React, { Component } from 'react';
 
-import Button from "../ui/Button";
-import TextField from "../ui/TextField";
-import Form from "../ui/Form";
+import Button from '../ui/Button';
+import TextField from '../ui/TextField';
+import Form from '../ui/Form';
 
-import api from "../api";
+import api from '../api';
 
 class SearchScreen extends Component {
   state = {
-    criteria: "",
+    criteria: '',
   };
 
   onSearch = async e => {
-    const {criteria} = this.state;
-    const {onSearch, onNotify} = this.props;
+    const { criteria } = this.state;
+    const { onSearch, onNotify } = this.props;
 
     e.preventDefault();
 
     try {
-      onNotify({message: "Buscando", color: "gainsboro"});
+      onNotify({ message: 'Buscando', color: 'gainsboro' });
 
       const results = await api.dogs.search(criteria);
 
       onSearch(results);
     } catch (error) {
       onNotify({
-        color: "tomato",
+        color: 'tomato',
         message:
-          "Hubo un error en nuestro servidor, intentá de nuevo mas tarde",
+          'Hubo un error en nuestro servidor, intentá de nuevo mas tarde',
       });
     }
   };
 
   render() {
-    const {criteria} = this.state;
+    const { criteria } = this.state;
 
     return (
       <div>
@@ -41,7 +41,7 @@ class SearchScreen extends Component {
           <TextField
             placeholder="Nombre"
             value={criteria}
-            onChange={e => this.setState({criteria: e.target.value})}
+            onChange={e => this.setState({ criteria: e.target.value })}
           />
           <Button>Buscar</Button>
         </Form>

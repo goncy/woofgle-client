@@ -1,15 +1,15 @@
-import React, {Component} from "react";
-import styled from "styled-components";
-import {Switch, Route, NavLink, Redirect} from "react-router-dom";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 
-import Notification from "./ui/Notification";
+import Notification from './ui/Notification';
 
-import Add from "./screens/Add";
-import Search from "./screens/Search";
-import Results from "./components/Results";
+import Add from './screens/Add';
+import Search from './screens/Search';
+import Results from './components/Results';
 
 const Logo = styled.h1`
-  font-family: "Baloo";
+  font-family: 'Baloo';
   font-size: 6rem;
   color: lightskyblue;
   text-shadow: 3px 4px 0px dodgerblue;
@@ -34,7 +34,7 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: ${({center}) => (center ? "center" : "inherit")};
+  align-items: ${({ center }) => (center ? 'center' : 'inherit')};
 `;
 
 const Content = styled.div`
@@ -50,27 +50,32 @@ class App extends Component {
   notificationTimeout;
 
   onSearch = results => {
-    this.setState({results});
+    this.setState({ results });
 
     if (results.length) {
-      this.onNotify({message: "Se encontraron perritos!", color: "lightgreen"});
+      this.onNotify({
+        message: 'Se encontraron perritos!',
+        color: 'lightgreen',
+      });
     } else {
-      this.onNotify({message: "No se encontraron perritos", color: "gold"});
+      this.onNotify({ message: 'No se encontraron perritos', color: 'gold' });
     }
   };
 
   onNotify = notification => {
-    this.setState({notification});
+    this.setState({ notification });
 
     this.notificationTimeout && clearTimeout(this.notificationTimeout);
     this.notificationTimeout = setTimeout(
-      () => this.setState({notification: null}),
+      () => this.setState({ notification: null }),
       2000
     );
   };
 
+  onLeaveResults = () => this.setState({ results: [] });
+
   render() {
-    const {results, notification} = this.state;
+    const { results, notification } = this.state;
 
     return (
       <Container>
@@ -79,12 +84,17 @@ class App extends Component {
           <nav>
             <NavLink
               data-test="search-link"
-              style={{margin: "0 8px"}}
+              style={{ margin: '0 8px' }}
               to="/search"
             >
               Buscar
             </NavLink>
-            <NavLink data-test="add-link" style={{margin: "0 8px"}} to="/add">
+            <NavLink
+              data-test="add-link"
+              style={{ margin: '0 8px' }}
+              to="/add"
+              onClick={this.onLeaveResults}
+            >
               Agregar
             </NavLink>
           </nav>
@@ -92,16 +102,18 @@ class App extends Component {
         <Main>
           <Switch>
             <Route exact path="/search">
-              <Search onNotify={this.onNotify} onSearch={this.onSearch} />
+              <>
+                <Search onNotify={this.onNotify} onSearch={this.onSearch} />
+                <Content>
+                  <Results data={results} />
+                </Content>
+              </>
             </Route>
             <Route path="/add">
               <Add onAdd={this.onAdd} onNotify={this.onNotify} />
             </Route>
             <Redirect to="/search" />
           </Switch>
-          <Content>
-            <Results data={results} />
-          </Content>
         </Main>
         {notification && (
           <Notification

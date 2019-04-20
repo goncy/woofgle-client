@@ -1,12 +1,12 @@
 // @flow
 
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import MediaCard from "../ui/MediaCard";
+import MediaCard from '../ui/MediaCard';
 
 type Props = {
-  data: Array<?{image: string, name: string}>,
+  data: Array<?{ image: string, name: string }>,
 };
 
 const Container = styled.div`
@@ -15,7 +15,7 @@ const Container = styled.div`
   grid-gap: 16px;
 `;
 
-const Results = ({data = []}: Props) => (
+const Results = ({ data = [] }: Props) => (
   <Container>
     {data.map(dog => (
       <MediaCard

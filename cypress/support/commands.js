@@ -23,6 +23,6 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })4
-Cypress.Commands.add("data", (attribute, element = "") =>
+Cypress.Commands.add('data', (attribute, element = '') =>
   cy.get(`[data-test=${attribute}] ${element}`)
 );

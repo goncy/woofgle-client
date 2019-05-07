@@ -20,9 +20,14 @@ describe('Agregar', () => {
   });
 
   it('Se muestra un mensaje de confirmacion al agregar un perrito', () => {
-    cy.route('POST', '/dogs**', {
-      name: 'Mongo',
-      image: '//placehold.it/256/256',
+    cy.route({
+      method: 'POST',
+      url: '/dogs**',
+      status: 200,
+      response: {
+        name: 'Mongo',
+        image: '//placehold.it/256/256',
+      },
     });
 
     fillForm('Mongo', '//placehold.it/256/256', true);

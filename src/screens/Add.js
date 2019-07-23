@@ -48,7 +48,7 @@ class AddScreen extends Component {
         <Form data-test="add-form" onSubmit={this.onSubmit}>
           <TextField
             className="image"
-            placeholder="URL"
+            placeholder="Imagen"
             value={image}
             onChange={e => this.setState({ image: e.target.value })}
           />

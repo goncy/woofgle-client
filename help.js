@@ -20,7 +20,7 @@ describe('Agregar', () => {
 
   it.skip('Se muestra un mensaje de confirmacion al agregar un perrito', () => {});
 
-  it.skip('Se muestra un mensaje de error is algo falla', () => {});
+  it.skip('Se muestra un mensaje de error si algo falla', () => {});
 });
 
 // support/commands.js
@@ -101,7 +101,7 @@ describe('Agregar', () => {
     cy.contains('Tu perrito fue agregado correctamente');
   });
 
-  it('Se muestra un mensaje de error is algo falla', () => {
+  it('Se muestra un mensaje de error si algo falla', () => {
     cy.route({
       url: '/dogs**',
       method: 'POST',

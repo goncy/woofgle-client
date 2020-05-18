@@ -1,3 +1,5 @@
+/// <reference types="Cypress" />
+
 // navigation.test.js
 describe('Navegacion', () => {
   it.skip('La url cambia al navegar entre rutas', () => {});
